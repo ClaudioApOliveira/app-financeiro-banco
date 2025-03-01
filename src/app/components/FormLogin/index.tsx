@@ -1,8 +1,7 @@
+import { UserPlus } from "lucide-react";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import LinkNext from "../Link";
-import { UserPlus } from "lucide-react";
 
 type Login = {
   email: string;
@@ -39,7 +38,7 @@ export default function FormLogin() {
         />
       </div>
       <div className="mt-2">
-        <label className="block  text-sm text-white">Senha</label>
+        <label className="block text-sm text-white">Senha</label>
         <input
           {...register("password", { required: true })}
           className="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white"
