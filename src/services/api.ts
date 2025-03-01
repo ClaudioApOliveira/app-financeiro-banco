@@ -1,5 +1,3 @@
-"use serve";
-
 import axios from "axios";
 import { API_ART_KART } from "./constants";
 
