@@ -8,7 +8,7 @@ export default function SignOut() {
     <main className={styles.container}>
       <div className="h-screen font-sans login bg-cover">
         <div className="container mx-auto h-full flex flex-1 justify-center items-center">
-          <div className="w-full max-w-lg">
+          <div className="w-dvw max-w-xl">
             <div className="leading-loose">
               <FormOut />
             </div>

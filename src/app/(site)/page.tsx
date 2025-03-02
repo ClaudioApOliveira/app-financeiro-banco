@@ -37,7 +37,7 @@ function Modal({ isOpen, onClose, children, text }: ModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-gray-200 p-2 rounded-lg min-w-96 w-1/2 max-h-[50vh] overflow-y-auto">
+      <div className="bg-gray-200 p-2 rounded-lg min-w-96 w-1/2 max-h-[50vh] max-w-32 overflow-y-auto">
         <h2 className="flex text-xl mb-4 justify-center items-center">
           {text}
         </h2>

@@ -5,7 +5,7 @@ export default function FormOut() {
   const router = useRouter();
   const logoutAttempt = async () => {
     await signOut({
-      callbackUrl: "/",
+      callbackUrl: "/singin",
     });
   };
 
