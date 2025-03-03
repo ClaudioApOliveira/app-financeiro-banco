@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import styles from "./home.module.css";
-import ConsultaSaldo from "../components/ConsultaSaldo";
-import { useSession } from "next-auth/react";
-import LinkNext from "../components/Link";
 import { LogOut } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import ConsultaSaldo from "../components/ConsultaSaldo";
 import DepositoForm from "../components/Deposito";
-import TransferenciaForm from "../components/Transferencia";
 import ExtratoConta from "../components/Extrato";
+import LinkNext from "../components/Link";
+import TransferenciaForm from "../components/Transferencia";
+import styles from "./home.module.css";
+import AlterarSenha from "../components/AlterarSenha";
 
 type ButtonHomeProps = {
   text: string;
@@ -71,45 +72,64 @@ export default function Home() {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <main className={styles.container}>
-      <span className="font-serif text-xl">Usuário: {session?.user.email}</span>
-      <div className="flex flex-col gap-4 mb-6 w-screen h-screen justify-center items-center">
-        <div className="grid grid-cols-2 gap-10">
-          <ButtonHome
-            className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[10px_5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:-translate-x-4 hover:-translate-y-4 transition duration-200 ease-in-out focus:outline-none"
-            text="Transferência"
-            onClick={() =>
-              openModal(
-                <TransferenciaForm onClose={closeModal} />,
-                "Transferência"
-              )
-            }
-          />
-          <ButtonHome
-            className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[-10px_5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:translate-x-4 hover:-translate-y-4 transition duration-200 ease-in-out focus:outline-none"
-            text="Consulta de Saldo"
-            onClick={() => openModal(<ConsultaSaldo />, "Saldo")}
-          />
-          <ButtonHome
-            className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[10px_-5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:-translate-x-4 hover:translate-y-4 transition duration-200 ease-in-out focus:outline-none"
-            text="Deposito"
-            onClick={() =>
-              openModal(<DepositoForm onClose={closeModal} />, "Depósito")
-            }
-          />
-          <ButtonHome
-            className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[-10px_-5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:translate-x-4 hover:translate-y-4 transition duration-200 ease-in-out focus:outline-none"
-            text="Extrato"
-            onClick={() => openModal(<ExtratoConta />, "Extrato da Conta")}
-          />
+    <main className={styles.main}>
+      {/* Configuração do Grid */}
+      <div className="grid grid-cols-3 gap-4">
+        {/* Coluna Esquerda */}
+        <div className="col-span-2 flex flex-col gap-4">
+          <div className="grid grid-cols-2 gap-10">
+            <ButtonHome
+              className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[10px_5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:-translate-x-4 hover:-translate-y-4 transition duration-200 ease-in-out focus:outline-none"
+              text="Transferência"
+              onClick={() =>
+                openModal(
+                  <TransferenciaForm onClose={closeModal} />,
+                  "Transferência"
+                )
+              }
+            />
+            <ButtonHome
+              className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[-10px_5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:translate-x-4 hover:-translate-y-4 transition duration-200 ease-in-out focus:outline-none"
+              text="Consulta de Saldo"
+              onClick={() => openModal(<ConsultaSaldo />, "Saldo")}
+            />
+            <ButtonHome
+              className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[10px_-5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:-translate-x-4 hover:translate-y-4 transition duration-200 ease-in-out focus:outline-none"
+              text="Deposito"
+              onClick={() =>
+                openModal(<DepositoForm onClose={closeModal} />, "Depósito")
+              }
+            />
+            <ButtonHome
+              className="mt-4 px-4 py-2 border border-gray-400 rounded-lg hover:shadow-[-10px_-5px_10px_rgba(0,0,0,0.3)] hover:shadow-gray-950 hover:bg-gray-400 hover:transform hover:text-black hover:translate-x-4 hover:translate-y-4 transition duration-200 ease-in-out focus:outline-none"
+              text="Extrato"
+              onClick={() => openModal(<ExtratoConta />, "Extrato da Conta")}
+            />
+          </div>
+          {session && (
+            <LinkNext
+              href="/api/auth/signout"
+              text="Logout"
+              icon={<LogOut size={20} />}
+            />
+          )}
         </div>
-        {session && (
-          <LinkNext
-            href="/api/auth/signout"
-            text="Logout"
-            icon={<LogOut size={20} />}
-          />
-        )}
+
+        <div className="flex flex-col items-center justify-start border-l-2 pl-4">
+          <h1 className="text-2xl font-bold mb-4">Configurações</h1>
+          <div className="flex flex-col items-start">
+            <ButtonHome
+              className="mb-2 text-lg hover:text-blue-500"
+              text="Alterar Senha"
+              onClick={() =>
+                openModal(
+                  <AlterarSenha onClose={closeModal} />,
+                  "Alteração de Senha"
+                )
+              }
+            />
+          </div>
+        </div>
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} text={textModel}>

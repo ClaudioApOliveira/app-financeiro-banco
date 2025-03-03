@@ -1,9 +1,9 @@
 .container {
     background-color: #171D1F;
     border: 1px solid #00090E;
-    padding: 56px 10px;
     background-image: url('https://tailwindadmin.netlify.app/dist/images/login-new.jpeg');
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
+    background-position: center;
 }
