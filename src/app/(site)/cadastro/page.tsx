@@ -1,6 +1,6 @@
 "use client";
 
-import CadastroForm from "@/app/components/CadastroForm";
+import CadastroForm from "@/components/CadastroForm";
 import styles from "./cadastro.module.css";
 
 export default function Cadastro() {

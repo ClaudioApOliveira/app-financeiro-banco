@@ -1,6 +1,6 @@
 "use client";
 
-import FormOut from "@/app/components/FormOut";
+import FormOut from "@/components/FormOut";
 import styles from "./signout.module.css";
 
 export default function SignOut() {

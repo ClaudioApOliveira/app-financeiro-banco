@@ -3,13 +3,13 @@
 import { LogOut } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
-import ConsultaSaldo from "../components/ConsultaSaldo";
-import DepositoForm from "../components/Deposito";
-import ExtratoConta from "../components/Extrato";
-import LinkNext from "../components/Link";
-import TransferenciaForm from "../components/Transferencia";
+import ConsultaSaldo from "../../components/ConsultaSaldo";
+import DepositoForm from "../../components/Deposito";
+import ExtratoConta from "../../components/Extrato";
+import LinkNext from "../../components/Link";
+import TransferenciaForm from "../../components/Transferencia";
 import styles from "./home.module.css";
-import AlterarSenha from "../components/AlterarSenha";
+import AlterarSenha from "../../components/AlterarSenha";
 
 type ButtonHomeProps = {
   text: string;

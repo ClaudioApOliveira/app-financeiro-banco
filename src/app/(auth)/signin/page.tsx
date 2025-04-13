@@ -1,6 +1,6 @@
 "use client";
 
-import FormLogin from "@/app/components/FormLogin";
+import FormLogin from "@/components/FormLogin";
 import styles from "./signin.module.css";
 
 export default function SignIn() {

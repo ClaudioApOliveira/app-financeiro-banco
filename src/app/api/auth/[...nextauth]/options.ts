@@ -4,14 +4,22 @@ import "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 type LoginResponse = {
-  data:{
+  data: {
     token: string;
     user: {
       id: string;
       email: string;
       roles: [string];
-    }
-  }
+    };
+  };
+};
+
+type ApiError = {
+  response?: {
+    data?: {
+      detalhe?: string;
+    };
+  };
 };
 
 export const options = {
@@ -25,7 +33,7 @@ export const options = {
         email: {
           label: "E-mail",
           type: "email",
-          placeholder: "Digite sey e-mail!",
+          placeholder: "Digite seu e-mail!",
         },
         password: {
           label: "Senha",
@@ -40,7 +48,7 @@ export const options = {
             credentials
           );
           if (foundUser) {
-            const { token, user } = foundUser.data.data;           
+            const { token, user } = foundUser.data.data;
             const userResult = {
               id: user.id,
               email: user.email,
@@ -51,6 +59,12 @@ export const options = {
           }
         } catch (error) {
           console.log("Erro ao autorizar um usuario", error);
+          const apiError = error as ApiError;
+          if (apiError.response?.data?.detalhe) {
+            throw new Error(apiError.response.data.detalhe);
+          } else {
+            throw new Error("An unknown error occurred");
+          }
         }
         return null;
       },
@@ -58,7 +72,7 @@ export const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {      
+      if (user) {
         token.user = user;
       }
       return Promise.resolve(token);
@@ -67,9 +81,12 @@ export const options = {
       session.user = token.user;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
   },
   pages: {
     signIn: "/signin",
-    signOut:"/signout"
+    signOut: "/signout",
   },
 } satisfies NextAuthOptions;
